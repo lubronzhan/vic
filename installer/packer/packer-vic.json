@@ -173,6 +173,16 @@
       "destination": "/etc/vmware/network-config.sh"
     },
     {
+      "type": "file",
+      "source": "scripts/systemd/harbor/harbor_startup.sh",
+      "destination": "/etc/vmware/harbor_startup.sh"
+    },
+    {
+      "type": "file",
+      "source": "scripts/systemd/harbor/harbor.service",
+      "destination": "/usr/lib/systemd/system/harbor.service"
+    },
+    {
       "type": "shell",
       "script": "scripts/system_settings.sh"
     },

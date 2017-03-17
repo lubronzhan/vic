@@ -40,5 +40,20 @@ mount /dev/sdb1 /data -t ext4
 mkdir -p /data/{admiral,harbor}
 umount /data
 
+# Enable application services
+do_deploy_harbor=$(ovfenv --key harbor.deploy)
+if [[ do_deploy_harbor ]]
+then
+    # this could be hardcode or download their offinline installer. But downloading always takes too long and I got an error
+    systemctl start docker.service
+    docker pull vmware/harbor-log:0.5.0
+    docker pull library/registry:2.5.0
+    docker pull vmware/harbor-db:0.5.0
+    docker pull vmware/harbor-ui:0.5.0
+    docker pull vmware/harbor-jobservice:0.5.0
+    docker pull nginx:1.11.5
+    systemctl enable harbor.service
+fi
+
 # seal the template
 > /etc/machine-id
